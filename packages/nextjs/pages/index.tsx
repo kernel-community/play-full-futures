@@ -75,40 +75,90 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Jessy's Hacker House | BuidlGuidl Grants</title>
+        <title>Play-Full Futures | BuidlGuidl, Kernel, RADAR</title>
         <meta
           name="description"
-          content="We're running an experiment to retroactively fund open-source work by providing a monthly UBI to open-source developers, handpicked by Jessy and Jessy's Hacker House, and rewarding them for their ongoing contributions to the ecosystem."
+          content="We're running an experiment to retroactively fund more playful, open-source futures. This page gathers the best researchers and buidlers to co-create in ways that are truly good for the various publics in which we all participate."
         />
-        <meta property="og:title" content="Jessy's Hacker House | BuidlGuidl Grants" />
+        <meta property="og:title" content="Play-Full Futures" />
         <meta
           property="og:description"
-          content="We're running an experiment to retroactively fund open-source work by providing a monthly UBI to open-source developers, handpicked by Jessy and Jessy's Hacker House, and rewarding them for their ongoing contributions to the ecosystem."
+          content="We're running an experiment to retroactively fund more playful, open-source futures. This page gathers the best researchers and buidlers to co-create in ways that are truly good for the various publics in which we all participate."
         />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta property="og:image" content="https://hackerhouse.buidlguidl.com/thumbnail.png" />
-        <meta property="twitter:image" content="https://hackerhouse.buidlguidl.com/thumbnail.png" />
+        <meta property="og:image" content="https://play-full.buidlguidl.com/thumbnail.png" />
+        <meta property="twitter:image" content="https://play-full.buidlguidl.com/thumbnail.png" />
       </Head>
 
       <div className="flex items-center flex-col flex-grow pt-10 mb-20">
-        <p className="font-bold text-center text-3xl w-full leading-6 bg-hacker text-primary-content p-2">Welcome!</p>
-        <div className="max-w-[40rem] m-auto w-[90%] mb-10">
+        <p className="font-bold text-center text-4xl w-full leading-6 primary-heading p-2">Welcome</p>
+        <div className="max-w-[40rem] m-auto w-[90%] mb-10 text-primary-content">
           <p>
-            We're running an experiment to retroactively fund open-source work by providing a monthly UBI to open-source
-            developers, handpicked by Jessy and Jessy's Hacker House, and rewarding them for their ongoing contributions
-            to the ecosystem.
+            We're running an experiment to retroactively fund more playful, open-source futures. This page gathers the
+            best researchers and buidlers to co-create goods for the various publics in which we all participate.
           </p>
+          <p>Players can submit monthly projects, claim grant streams, and showcase their work.</p>
           <p>
-            Chosen developers can submit their monthly projects, automatically claim grant streams, and showcase their
-            work to the public.
+            "And once those limits are understood
+            <br />
+            To understand that limitations no longer exist.
+            <br />
+            Earth could be fair. And you and I must be free
+            <br />
+            Not to save the world in a glorious crusade
+            <br />
+            Not to kill ourselves with a nameless gnawing pain
+            <br />
+            But to practice with all the skill of our being
+            <br />
+            The art of making possible." <br />
+            <br /> -{" "}
+            <a
+              href="https://www.kernel.community/en/learn/module-6/serenity"
+              target="_blank"
+              rel="noreferrer"
+              className="underline underline-offset-2"
+            >
+              Nancy Scheibner
+            </a>
           </p>
-          <p>This initiative is made possible by BuidlGuidl!</p>
         </div>
 
-        <h2 className="mt-5 mb-10 font-bold text-xl bg-hacker text-primary-content p-2 w-full text-center">
-          Hacker ETH Streams
-        </h2>
-        <div>
+        <h2 className="mt-5 mb-10 font-bold text-2xl primary-heading p-2 w-full text-center">Contributions</h2>
+        <div className="m-auto max-w-[40rem] w-[90%] mb-10 text-primary-content">
+          {isLoadingWithdrawEvents ? (
+            <div className="my-10 text-center">
+              <div className="text-5xl animate-bounce mb-2">👾</div>
+              <div className="text-lg loading-dots">Loading...</div>
+            </div>
+          ) : (
+            <>
+              {sortedWithdrawEvents?.map((event: any) => {
+                return (
+                  <div
+                    className="flex flex-col gap-1 mb-6"
+                    key={`${event.log.address}_${event.log.blockNumber}`}
+                    data-test={`${event.log.address}_${event.log.blockNumber}`}
+                  >
+                    <div>
+                      <Address address={event.args.to} />
+                    </div>
+                    <div>
+                      <strong>{new Date(event.block.timestamp * 1000).toISOString().split("T")[0]}</strong>
+                    </div>
+                    <div>
+                      <strong className="underline">Ξ {ethers.utils.formatEther(event.args.amount)}</strong>:{" "}
+                      {event.args.reason}
+                    </div>
+                  </div>
+                );
+              })}
+            </>
+          )}
+        </div>
+
+        <h2 className="mt-5 mb-10 font-bold text-2xl primary-heading p-2 w-full text-center">Buidler ETH Streams</h2>
+        <div className="m-auto max-w-[40rem] w-[90%] mb-10 text-primary-content">
           {isLoadingBuilderData || isLoadingBuilderEvents ? (
             <div className="my-10 text-center">
               <div className="text-5xl animate-bounce mb-2">👾</div>
@@ -154,43 +204,10 @@ const Home: NextPage = () => {
           )}
         </div>
 
-        <h2 className="mt-5 mb-10 font-bold text-xl bg-hacker text-primary-content p-2 w-full text-center">
-          Contributions
-        </h2>
-        <div className="m-auto w-[90%] mb-10">
-          {isLoadingWithdrawEvents ? (
-            <div className="my-10 text-center">
-              <div className="text-5xl animate-bounce mb-2">👾</div>
-              <div className="text-lg loading-dots">Loading...</div>
-            </div>
-          ) : (
-            <>
-              {sortedWithdrawEvents?.map((event: any) => {
-                return (
-                  <div
-                    className="flex flex-col gap-1 mb-6"
-                    key={`${event.log.address}_${event.log.blockNumber}`}
-                    data-test={`${event.log.address}_${event.log.blockNumber}`}
-                  >
-                    <div>
-                      <Address address={event.args.to} />
-                    </div>
-                    <div>
-                      <strong>{new Date(event.block.timestamp * 1000).toISOString().split("T")[0]}</strong>
-                    </div>
-                    <div>
-                      Ξ {ethers.utils.formatEther(event.args.amount)} / {event.args.reason}
-                    </div>
-                  </div>
-                );
-              })}
-            </>
-          )}
-        </div>
-
         <div className="my-6 flex flex-col items-center">
-          <p className="font-bold mb-2 bg-hacker text-primary-content">Stream contract Balance</p>
+          <p className="font-bold mb-2 primary-heading">Stream Contract</p>
           <Address address={streamContract?.address} />
+          <p className="font-bold mb-2 primary-heading">Stream Balance</p>
           <Balance address={streamContract?.address} className="text-3xl" />
           {address && amIAStreamedBuilder && (
             <div className="mt-6">
@@ -207,7 +224,7 @@ const Home: NextPage = () => {
       </div>
 
       <div className="my-6 flex flex-col items-center">
-        <p className="font-bold mb-2 bg-hacker text-primary-content">Owner</p>
+        <p className="font-bold mb-2 primary-heading">Owner</p>
         <Address address={owner} />
       </div>
 

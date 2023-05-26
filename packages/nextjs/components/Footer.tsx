@@ -26,14 +26,23 @@ export const Footer = () => {
               >
                 BuidlGuidl
               </a>{" "}
-              && 🧑‍🎤{" "}
+              && 🌱{" "}
               <a
-                href="https://twitter.com/wehack247"
+                href="https://twitter.com/KERNEL0x"
                 target="_blank"
                 rel="noreferrer"
                 className="underline underline-offset-2"
               >
-                Jessy's Hacker House
+                Kernel
+              </a>{" "}
+              && 🟣{" "}
+              <a
+                href="https://twitter.com/Radarxyz"
+                target="_blank"
+                rel="noreferrer"
+                className="underline underline-offset-2"
+              >
+                RADAR
               </a>
             </div>
           </div>

@@ -18,6 +18,13 @@ p {
   margin: 1rem 0;
 }
 
+.primary-heading {
+  color: #212144;
+  border-bottom: 1px solid #212144;
+  padding-bottom: 20px;
+  max-width: 360px;
+}
+
 .btn {
   @apply shadow-md;
 }
