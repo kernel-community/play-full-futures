@@ -148,7 +148,7 @@ const Home: NextPage = () => {
                     </div>
                     <div>
                       <strong className="underline">Ξ {ethers.utils.formatEther(event.args.amount)}</strong>:{" "}
-                      {event.args.reason}
+                      <span className="break-words">{event.args.reason}</span>
                     </div>
                   </div>
                 );
@@ -172,8 +172,11 @@ const Home: NextPage = () => {
                 const unlocked = ethers.utils.formatEther(builderData.unlockedAmount || 0);
                 const percentage = Math.floor((parseFloat(unlocked) / parseFloat(cap)) * 100);
                 return (
-                  <div className="pb-8 flex gap-4" key={builderData.builderAddress}>
-                    <div className="w-1/2 flex">
+                  <div
+                    className="pb-8 flex flex-col items-center gap-2 md:gap-4 md:flex-row"
+                    key={builderData.builderAddress}
+                  >
+                    <div className="md:w-1/2 flex justify-end">
                       <label
                         htmlFor="withdraw-events-modal"
                         className="cursor-pointer"
